@@ -19,6 +19,7 @@ import java.util.Set;
 
 @Getter
 @ToString
+@Entity
 @Table(indexes = {
         @Index(columnList = "title"),
         @Index(columnList = "hashtag"),
@@ -26,7 +27,6 @@ import java.util.Set;
         @Index(columnList = "createdBy"),
 })
 @EntityListeners(AuditingEntityListener.class)
-@Entity
 public class Article {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) //mysql의 auto increment는 indentity 방식으로 auto increment가 만들어진다.
