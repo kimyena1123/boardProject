@@ -1,5 +1,6 @@
 package com.fastcampus.projectboard.controller;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
+
+@Disabled("Spring Data REST 통합 테스트는 불필요하므로 제외시킴") // 해당 테스트 클래스 밑에 있는 모든 유닛 테스트들은 실행되지 않게 된다.
 @DisplayName("Data REST - API 테스트")
 //@WebMvcTest //controller에 대한 test이니까
 @Transactional // test에서 동작하는 transaction의 기본동작은 rollback이다. 이걸 안하면 db에 영향을 주는 test가 된다.
