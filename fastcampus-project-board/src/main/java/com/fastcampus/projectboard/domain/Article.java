@@ -25,7 +25,7 @@ import java.util.Set;
         @Index(columnList = "createdAt"),
         @Index(columnList = "createdBy"),
 })
-public class Article extends AuditingFields{ //이렇게 하면 이제 auditingFields 안에 있는 모든 4개 필드는 article의 일부가 된다. $
+public class Article extends AuditingFields{ //이렇게 하면 이제 auditingFields 안에 있는 모든 4개 필드는 article의 일부가 된다.
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -36,10 +36,12 @@ public class Article extends AuditingFields{ //이렇게 하면 이제 auditingF
 
     @Setter private String hashtag; // 해시태그(null 가능)
 
+    //##########################################################################################################################
+
     //Article과 ArticleComment 테이블 간 관계: One to Many 관계를 보여줘야 한다.
     @ToString.Exclude
-    @OrderBy("id")
-    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
+    @OrderBy("id") //id를 기준으로 정렬해서
+    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL) //1대다 관계. 게시물 하나에 댓글이 0개일 수도 여러 개일 수도 있다.
     private final Set<ArticleComment> articleComments = new LinkedHashSet<>();
 
 
@@ -57,6 +59,8 @@ public class Article extends AuditingFields{ //이렇게 하면 이제 auditingF
     public static Article of(String title, String content, String hashtag) {
         return new Article(title, content, hashtag);
     }
+
+    //##########################################################################################################################
 
     @Override
     public boolean equals(Object o) {

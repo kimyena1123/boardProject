@@ -33,6 +33,7 @@ public class ArticleComment extends AuditingFields{
     //댓글을 변경하거나 지웠을 때 관련되어 있는 게시글이 영향을 받아야 하는가 생각해보면 -> 댓글은 혼자 깔끔하게 지워지고 게시글은 영향받지 말아야 한다.
     //그래서 cascading 옵션을 주지 않겠다. 이럴 경우 기본값은 none이다.
     @Setter @ManyToOne(optional = false) private Article article; // 게시글 (ID)
+
     @Setter @Column(nullable = false, length = 500) private String content; // 댓글 내용
 
 
