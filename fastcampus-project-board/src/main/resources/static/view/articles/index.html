@@ -1,14 +1,13 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <title>게시판 페이지</title>
 </head>
 <body>
-<header>
-  header!
-  <hr>
-</header>
+<!-- insert나 replace 중에 쓰기. include도 있지만 권장X.  {} 안에 view 이름을 넣어주면 된다.-->
+
+<header th:insert="header :: header"></header>
 
 <main>
   <form> <!-- 검색창 -->
@@ -76,9 +75,7 @@
   </nav>
 </main>
 
-<footer>
-  <hr>
-  footer!
-</footer>
+<footer th:replace="footer::footer"></footer>
+
 </body>
 </html>

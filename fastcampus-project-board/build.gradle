@@ -44,9 +44,8 @@ dependencies {
     annotationProcessor "jakarta.persistence:jakarta.persistence-api" // java.lang.NoClassDefFoundError (javax.annotation.Entity) 대응 코드
 
     //thyleaf (프론트)
-//    implementation 'org.springframe work.boot:spring-boot-starter-thymeleaf'
-//    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.thymeleaf:thymeleaf:3.0.11.RELEASE'
+
 
 
 }
