@@ -33,7 +33,7 @@ class ArticleControllerTest {
 //                .andExpect(MockMvcResultMatchers.content().contentTypeCompatibleWith(MediaType.TEXT_HTML)) // content 내용의 type이 무엇인지. view이니까 text html
                 .andExpect(MockMvcResultMatchers.view().name("articles/index")) // view name에 대한 검사: 여기에 view가 있어야 한다.
                 .andExpect(MockMvcResultMatchers.model().attributeExists("articles")); // 이 view는 데이터가 있어야 한다. 게시판 페이지를 보면 이번 페이지에 보여줘야 될 게시글 목록이 떠야 한다.
-
+                //articles 테이블의 정보를 가져와서 보여줌
 
     }
 
@@ -50,7 +50,8 @@ class ArticleControllerTest {
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.TEXT_HTML))
                 .andExpect(MockMvcResultMatchers.view().name("articles/detail"))
                 .andExpect(MockMvcResultMatchers.model().attributeExists("article")) // 이때는 게시글 데이터가 넘겨져야 한다.
-                .andExpect(MockMvcResultMatchers.model().attributeExists("articleComments ")); // 게시글 페이지는 댓글도 보여야 한다.
+                .andExpect(MockMvcResultMatchers.model().attributeExists("articleComments")); // 게시글 페이지는 댓글도 보여야 한다.
+                //articleComment 테이블을 가져와서 정보를 보여줄 거임 그래서 articleComment 테이블이 필요한 거임
 
     }
 
