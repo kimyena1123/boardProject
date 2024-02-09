@@ -23,7 +23,7 @@ public class ArticleController {
 
 //    @GetMapping //localhost:8080/articles
 //    public String articles(Map model){
-//        model.put("articles", List.of());
+//        model.put("articles", Li st.of());
 //        return "articles/index";
 //    }
 
@@ -35,8 +35,8 @@ public class ArticleController {
 
     @GetMapping("/{articleId}")
     public String article(@PathVariable(name = "articleId") Long articleId, ModelMap map) {
-        map.addAttribute("article", null);
-        map.addAttribute("articleComment", List.of());
+        map.addAttribute("article", "article");
+        map.addAttribute("articleComments", "articleComments");
 
         return "articles/detail";
     }
