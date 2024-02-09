@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 @ToString //lombok의 toString
 @EntityListeners(AuditingEntityListener.class)
 @MappedSuperclass
-public class AuditingFields { //이렇게 추출한 클래스 필드들을 어떻게 article과 연결시킬까? -> 상속, Aritcle에서 상속
+public abstract class AuditingFields { //이렇게 추출한 클래스 필드들을 어떻게 article과 연결시킬까? -> 상속, Aritcle에서 상속
 
     //createdAt과 creatdBy는 컬럼에 옵션을 추가하도록 하겠다.
     //updatable과 insertable이라는 옵션이 추가로 있는데, updatable만 기준으로 봤을 때, 이 필드는 업데이트가 불가하다는 걸 명시하는 것이다.
