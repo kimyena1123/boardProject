@@ -12,6 +12,11 @@ spring:
     view:
       prefix: /view/
       suffix: .html
+#  thymeleaf:
+#    prefix: classpath:/static/views/
+#    suffix: .html
+#    check-template-location: true
+#    cache: false
   datasource:
     url: jdbc:mysql://localhost:3306/board
     username: fastcampus
@@ -31,3 +36,14 @@ spring:
     rest:
       base-path: /api
       detection-strategy: annotated
+  freemarker:
+    template-loader-path: classpath:/templates
+    prefix: /freemarker/
+    suffix: .ftl
+    content-type: text/html
+    charset: UTF-8
+    cache: false
+  devtools:
+    livereload:
+      enabled: true
+
