@@ -4,13 +4,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.Optional;
 //@Configuration: 이걸 사용함으로써 JPA config는 configuration bean이 된다. 각종 설정을 잡을 때 사용
 //@EnableJpaAuditing: 이것으로 JPA auditing 기능을 추가 활성화 시킬 것이다.
 @EnableJpaAuditing
 @Configuration
-public class JpaConfig {
+public class JpaConfig{
 
     //auditing 할 때 사람 이름을 넣어주기 위한 config를 잡아줄 수 있다.
     //<> 안에 들어갈 내용은 id가 되는데, 사람 이름을 넣어줄거니까 문자열(string)으로 해주고
