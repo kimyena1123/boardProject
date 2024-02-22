@@ -1,11 +1,13 @@
 package com.fastcampus.projectboard.controller;
 
 import com.fastcampus.projectboard.config.SecurityConfiguration;
+import com.fastcampus.projectboard.service.ArticleService;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -20,6 +22,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 class ArticleControllerTest {
 
     private final MockMvc mvc;
+
+    @MockBean private ArticleService articleService;
 
     public ArticleControllerTest(@Autowired MockMvc mvc) { //@Autowired를 생략할 수 없으니까 꼭 추가해주는 거 잊으면 안된다. 
         this.mvc = mvc;
@@ -79,7 +83,7 @@ class ArticleControllerTest {
         //given
 
         //when & then
-        mvc.perform(get("/articles/sesarch-hashtag"))
+        mvc.perform(get("/articles/search-hashtag"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.TEXT_HTML))
                 .andExpect(MockMvcResultMatchers.model().attributeExists("articles/search-hashtag "));

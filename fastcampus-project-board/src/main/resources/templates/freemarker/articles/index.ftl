@@ -32,7 +32,7 @@
                                             </select>
                                         </div>
                                         <div class="col-lg-8 col-md-6 col-sm-12 p-0">
-                                            <input type="text" placeholder="Search..." class="form-control" id="search" name="search">
+                                            <input type="text" placeholder="Search..." class="form-control" id="search" name="search" style="border-left:1px solid #bbb;">
                                         </div>
                                         <div class="col-lg-1 col-md-3 col-sm-12 p-0">
                                             <button type="submit" class="btn btn-base">

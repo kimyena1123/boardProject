@@ -17,18 +17,22 @@ import java.util.Objects;
 import java.util.Set;
 
 @Getter
-@ToString
-@Entity
+@ToString(callSuper = true)
 @Table(indexes = {
         @Index(columnList = "title"),
         @Index(columnList = "hashtag"),
         @Index(columnList = "createdAt"),
-        @Index(columnList = "createdBy"),
+        @Index(columnList = "createdBy")
 })
+@Entity
 public class Article extends AuditingFields{ //이렇게 하면 이제 auditingFields 안에 있는 모든 4개 필드는 article의 일부가 된다.
+
+    //테이블 행: id, user_account_id, title, content, hashtag, createdAt, createdBy, modifiedAt, modifiedBy
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Setter @ManyToOne(optional = false) private UserAccount userAccount; // 유저 정보 (ID)
 
     //setter 필요 -> setter는 어떨 때 필요? 수정이 필요할 때!
     @Setter @Column(nullable = false) private String title; // 제목(not null)
@@ -40,7 +44,7 @@ public class Article extends AuditingFields{ //이렇게 하면 이제 auditingF
 
     //Article과 ArticleComment 테이블 간 관계: One to Many 관계를 보여줘야 한다.
     @ToString.Exclude
-    @OrderBy("id") //id를 기준으로 정렬해서
+    @OrderBy("createdAt DESC") //createdAt를 기준으로 정렬해서
     @OneToMany(mappedBy = "article", cascade = CascadeType.ALL) //1대다 관계. 게시물 하나에 댓글이 0개일 수도 여러 개일 수도 있다.
     private final Set<ArticleComment> articleComments = new LinkedHashSet<>();
 
@@ -48,7 +52,8 @@ public class Article extends AuditingFields{ //이렇게 하면 이제 auditingF
     //Entity는 기본 생성자 필수!! JPA 스펙상 규정이 되어 있다.
     protected Article() {}
 
-    private Article(String title, String content, String hashtag) {
+    private Article(UserAccount userAccount, String title, String content, String hashtag) {
+        this.userAccount = userAccount;
         this.title = title;
         this.content = content;
         this.hashtag = hashtag;
@@ -56,8 +61,8 @@ public class Article extends AuditingFields{ //이렇게 하면 이제 auditingF
 
     //domain Article을 생성하고자 할 때, 어떤 값을 필요로 한다는 걸 이것으로 가이드 하는 것이다.
     //제목과 본문, 해시태그를 넣어주세요' 라고 하는 것임
-    public static Article of(String title, String content, String hashtag) {
-        return new Article(title, content, hashtag);
+    public static Article of(UserAccount userAccount, String title, String content, String hashtag) {
+        return new Article(userAccount, title, content, hashtag);
     }
 
     //##########################################################################################################################

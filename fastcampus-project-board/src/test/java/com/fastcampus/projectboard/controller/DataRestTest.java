@@ -13,7 +13,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
 
 //@Disabled("Spring Data REST 통합 테스트는 불필요하므로 제외시킴") // 해당 테스트 클래스 밑에 있는 모든 유닛 테스트들은 실행되지 않게 된다.
@@ -81,5 +81,19 @@ public class DataRestTest {
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.valueOf("application/hal+json")))
                 .andDo(MockMvcResultHandlers.print());
 
+    }
+
+    @DisplayName("[api] 회원 관련 API 는 일체 제공하지 않는다.")
+    @Test
+    void givenNothing_whenRequestingUserAccounts_thenThrowsException() throws Exception {
+        // Given
+
+        // When & Then
+        mvc.perform(get("/api/userAccounts")).andExpect(MockMvcResultMatchers.status().isNotFound());
+        mvc.perform(post("/api/userAccounts")).andExpect(MockMvcResultMatchers.status().isNotFound());
+        mvc.perform(put("/api/userAccounts")).andExpect(MockMvcResultMatchers.status().isNotFound());
+        mvc.perform(patch("/api/userAccounts")).andExpect(MockMvcResultMatchers.status().isNotFound());
+        mvc.perform(delete("/api/userAccounts")).andExpect(MockMvcResultMatchers.status().isNotFound());
+        mvc.perform(head("/api/userAccounts")).andExpect(MockMvcResultMatchers.status().isNotFound());
     }
 }

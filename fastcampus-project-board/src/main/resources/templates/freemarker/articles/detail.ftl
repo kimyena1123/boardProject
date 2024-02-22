@@ -27,21 +27,22 @@
                 </aside>
             </section>
 
-            <article class="col-md-7 col-lg-8">
+            <article class="col-md-7 col-lg-8 border-end">
                 <p>본문<br><br></p>
             </article>
         </div>
 
         <div class="row g-5">
             <section>
+                <br>
                 <form class="row g-3">
                     <div class="col-8">
                         <label for="comment-textbox" hidden>댓글</label>
                         <textarea class="form-control" id="comment-textbox" placeholder="댓글 쓰기.." rows="3"></textarea>
                     </div>
-                    <div class="col-auto">
+                    <div class="col-8">
                         <label for="comment-submit" hidden>댓글 쓰기</label>
-                        <button class="btn btn-primary" id="comment-submit" type="submit">쓰기</button>
+                        <button class="btn btn-primary" id="comment-submit" type="submit" style="float: right;">쓰기</button>
                     </div>
                 </form>
 
