@@ -40,6 +40,8 @@ public class ArticleService  {
         };
     }
 
+
+
     @Transactional(readOnly = true)//검색은 변경하는 게 아니라 리딩하는 것.
     public ArticleWithCommentsDto getArticle(Long articleId) { //단건 조회
         return articleRepository.findById(articleId)

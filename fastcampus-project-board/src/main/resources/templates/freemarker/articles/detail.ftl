@@ -14,7 +14,7 @@
 
     <main class="container">
         <header class="py-5 text-center">
-            <h1>첫번째 글</h1>
+            <h1>${articleId}번째 글</h1>
         </header>
 
         <div class="row g-5">
