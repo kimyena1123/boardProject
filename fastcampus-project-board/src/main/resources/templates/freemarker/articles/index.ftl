@@ -32,7 +32,7 @@
                                             </select>
                                         </div>
                                         <div class="col-lg-8 col-md-6 col-sm-12 p-0">
-                                            <input type="text" placeholder="Search..." class="form-control" id="search" name="search">
+                                            <input type="text" placeholder="Search..." class="form-control" id="search" name="search" style="border-left:1px solid #bbb;">
                                         </div>
                                         <div class="col-lg-1 col-md-3 col-sm-12 p-0">
                                             <button type="submit" class="btn btn-base">
@@ -63,36 +63,38 @@
 <#--            <button type="submit">검색</button>-->
 <#--        </form>-->
 
-        <table class="table">
+        <table class="table" id="article-table">
             <thead class="table-light">
             <tr>
-                <th class="col-6">제목</th>
-                <th class="col-2">해시태그</th>
-                <th class="col">작성자</th>
-                <th class="col">작성일</th>
+                <th class="title col-6">제목</th>
+                <th class="hashtag col-2">해시태그</th>
+                <th class="user-id col">작성자</th>
+                <th class="created-at col">작성일</th>
             </tr>
             </thead>
             <tbody>
+            <#list articles.getContent() as article>
             <tr>
-                <td>첫번째 글</td>
-                <td>#java</td>
-                <td>Uno</td>
-                <td>2024-02-02</td>
+                <td class="title"><a href="/articles/${article.id()}">${article.title()}</a></td>
+                <td class="hashtag">${article.hashtag()?default('')}</td>
+                <td class="user-id">${article.nickname()}</td>
+                <td class="created-at"><time>${article.createdAt()}</time></td>
             </tr>
+            </#list>
 
-            <tr>
-                <td>두번째 글</td>
-                <td>#spring</td>
-                <td>Uno</td>
-                <td>2024-02-03</td>
-            </tr>
+<#--            <tr>-->
+<#--                <td>두번째 글</td>-->
+<#--                <td>#spring</td>-->
+<#--                <td>Uno</td>-->
+<#--                <td>2024-02-03</td>-->
+<#--            </tr>-->
 
-            <tr>
-                <td>세번째 글</td>
-                <td>#Database</td>
-                <td>Uno</td>
-                <td>2024-02-04</td>
-            </tr>
+<#--            <tr>-->
+<#--                <td>세번째 글</td>-->
+<#--                <td>#Database</td>-->
+<#--                <td>Uno</td>-->
+<#--                <td>2024-02-04</td>-->
+<#--            </tr>-->
             </tbody>
         </table>
 
@@ -110,10 +112,11 @@
     </main>
 
 
-    <#include "*/include/footer.ftl">
+    <#include "*/include/footer.ftl"> 7분 31초
 
 <#--bootstrap script-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
 </body>
+
 </html>

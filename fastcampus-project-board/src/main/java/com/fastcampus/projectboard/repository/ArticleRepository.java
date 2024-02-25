@@ -2,21 +2,29 @@ package com.fastcampus.projectboard.repository;
 
 import com.fastcampus.projectboard.domain.Article;
 import com.fastcampus.projectboard.domain.QArticle;
-import com.fastcampus.projectboard.domain.QArticleComment;
 import com.querydsl.core.types.dsl.DateTimeExpression;
 import com.querydsl.core.types.dsl.StringExpression;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.querydsl.binding.QuerydslBinderCustomizer;
 import org.springframework.data.querydsl.binding.QuerydslBindings;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
-import org.springframework.stereotype.Repository;
 
 //@Repository
 @RepositoryRestResource
 public interface ArticleRepository extends JpaRepository<Article, Long>
         ,QuerydslPredicateExecutor<Article>
         , QuerydslBinderCustomizer<QArticle> {
+
+    Page<Article> findByTitleContaining(String title, Pageable pageable);
+    Page<Article> findByContentContaining(String content, Pageable pageable);
+    Page<Article> findByUserAccount_UserIdContaining(String userId, Pageable pageable);
+    Page<Article> findByUserAccount_Nickname(String nickname, Pageable pageable);
+    Page<Article> findByHashtag(String hashtag, Pageable pageable);
+
+
 
     //여기 안에 구현된 내용을 토대로 검색에 대한 세부적인 규칙이 다시 재구성된다.
     //근데 여기는 interface라 원래는 구현을 넣을 수 없다.
@@ -32,6 +40,7 @@ public interface ArticleRepository extends JpaRepository<Article, Long>
         bindings.excludeUnlistedProperties(true);
         //bindings.including(): 이걸로 원하는 필드를 추가하는 것이다. root 이용해서 한다.
         bindings.including(root.title, root.content, root.hashtag, root.createdAt, root.createdBy);
+
         //title은 argument는 하나만 받는다. 그래서 first 사용
         bindings.bind(root.title).first(StringExpression::containsIgnoreCase); // like '%s{v}%'
 //                bindings.bind(root.title).first(StringExpression::likeIgnoreCase); // like '${v};

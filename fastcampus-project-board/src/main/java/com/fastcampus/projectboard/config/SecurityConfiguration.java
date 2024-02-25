@@ -19,6 +19,11 @@ public class SecurityConfiguration  {
                 .formLogin(withDefaults());
 
         return http.build();
+
+//        return http
+//                .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
+//                .formLogin().and()
+//                .build();
     }
 
 
