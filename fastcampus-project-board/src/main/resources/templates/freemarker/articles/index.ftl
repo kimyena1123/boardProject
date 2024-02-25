@@ -73,6 +73,7 @@
         <nav id="pagination" aria-label="Page navigation example">
             <ul class="pagination justify-content-center">
 
+                <#-- previous 버튼-->
                 <#if articles.number - 1 gt 0>
                     <li class="page-item">
                         <a class="page-link" href="/articles?page=${articles.number - 1}">
@@ -85,7 +86,8 @@
                     </li>
                 </#if>
 
-
+                <#-- list 반복문을 사용해 previous와 next사이의 버튼을 생성
+                    => 내가 누른 페이지(현재 페이지)의 위치가 버튼의 가운데에 오도록 설정 -->
                 <#list paginationBarNumbers as pageNumber>
                     <li class="page-item">
                         <#if pageNumber == articles.number>
@@ -98,6 +100,7 @@
                     </li>
                 </#list>
 
+                <#-- next 버튼-->
                 <#if articles.number + 1 < articles.totalPages>
                     <li class="page-item">
                         <a class="page-link" href="/articles?page=${articles.number + 1}">
@@ -108,7 +111,8 @@
                     <li class="page-item disabled">
                         <a class="page-link" href="#">Next</a>
                     </li>
-                </#if>            </ul>
+                </#if>
+            </ul>
         </nav>
 
     </main>
