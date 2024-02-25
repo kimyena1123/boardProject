@@ -12,7 +12,7 @@
     <#include "*/include/header.ftl">
 
 
-    <main class="container">
+    <main class="container" style="padding-top: 40px;">
 <#--bootdey 템플릿 사용-->
         <div class="row">
             <div class="col-lg-12 card-margin">
@@ -47,21 +47,6 @@
                 </div>
             </div>
         </div>
-<#--        <form> <!-- 검색창 &ndash;&gt;-->
-<#--            <label for="search-type" hidden>유형</label>-->
-<#--            <select id="search-type" name=search-type""> <!-- article을 검색할 때 필터로 5가지를 주고 있다. 필터: 제목, 본문, id, 닉네임, 해시태그 &ndash;&gt;-->
-<#--                <option>제목</option>-->
-<#--                <option>본문</option>-->
-<#--                <option>ID</option>-->
-<#--                <option>닉네임</option>-->
-<#--                <option>해시태그</option>-->
-<#--            </select>-->
-
-<#--            <label for="search-value" hidden>검색어</label>-->
-<#--            <input type="search" id="search-value" name="search-value" placeholder="검색어..">-->
-
-<#--            <button type="submit">검색</button>-->
-<#--        </form>-->
 
         <table class="table" id="article-table">
             <thead class="table-light">
@@ -81,38 +66,55 @@
                 <td class="created-at"><time>${article.createdAt()}</time></td>
             </tr>
             </#list>
-
-<#--            <tr>-->
-<#--                <td>두번째 글</td>-->
-<#--                <td>#spring</td>-->
-<#--                <td>Uno</td>-->
-<#--                <td>2024-02-03</td>-->
-<#--            </tr>-->
-
-<#--            <tr>-->
-<#--                <td>세번째 글</td>-->
-<#--                <td>#Database</td>-->
-<#--                <td>Uno</td>-->
-<#--                <td>2024-02-04</td>-->
-<#--            </tr>-->
             </tbody>
         </table>
 
 
-        <nav aria-label="Page navigation example">
+        <nav id="pagination" aria-label="Page navigation example">
             <ul class="pagination justify-content-center">
-                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">Next</a></li>
-            </ul>
+
+                <#if articles.number - 1 gt 0>
+                    <li class="page-item">
+                        <a class="page-link" href="/articles?page=${articles.number - 1}">
+                            Previous
+                        </a>
+                    </li>
+                <#else>
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#">Previous</a>
+                    </li>
+                </#if>
+
+
+                <#list paginationBarNumbers as pageNumber>
+                    <li class="page-item">
+                        <#if pageNumber == articles.number>
+                            <a class="page-link disabled" href="#">${pageNumber + 1}</a>
+                        <#else>
+                            <a class="page-link" href="/articles?page=${pageNumber}">
+                                ${pageNumber + 1}
+                            </a>
+                        </#if>
+                    </li>
+                </#list>
+
+                <#if articles.number + 1 < articles.totalPages>
+                    <li class="page-item">
+                        <a class="page-link" href="/articles?page=${articles.number + 1}">
+                            Next
+                        </a>
+                    </li>
+                <#else>
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#">Next</a>
+                    </li>
+                </#if>            </ul>
         </nav>
 
     </main>
 
 
-    <#include "*/include/footer.ftl"> 7분 31초
+    <#include "*/include/footer.ftl">
 
 <#--bootstrap script-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
