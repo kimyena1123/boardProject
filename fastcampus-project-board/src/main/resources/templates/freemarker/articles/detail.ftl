@@ -12,22 +12,22 @@
 
     <#include "*/include/header.ftl">
 
-    <main class="container">
-        <header class="py-5 text-center">
+<main id="article-main" class="container">
+    <header id="article-header" class="py-5 text-center">
             <h1>${articleId}번째 글</h1>
         </header>
 
         <div class="row g-5">
             <section class="col-md-5 col-lg-4 order-md-last">
                 <aside>
-                    <p><span class="nick-name">Uno</span></p>
-                    <p><a class="u-url" rel="me" href="mailto:djkehh@gmail.com">uno@mail.com</a></p>
-                    <p><time datetime="2022-01-01T00:00:00">2022-01-01</time></p>
-                    <p>#java</p>
+                    <p><span id="nickname">Uno</span></p>
+                    <p><a id="email" href="mailto:djkehh@gmail.com">uno@mail.com</a></p>
+                    <p><time id="created-at" datetime="2022-01-01T00:00:00">2022-01-01</time></p>
+                    <p><span id="hashtag">#java</span></p>
                 </aside>
             </section>
 
-            <article class="col-md-7 col-lg-8 border-end">
+            <article id="article-content" class="col-md-7 col-lg-8 border-end">
                 <p>본문<br><br></p>
             </article>
         </div>
@@ -46,7 +46,7 @@
                     </div>
                 </form>
 
-                <ul>
+                <ul id="article-comments" class="row col-7">
                     <li>
                         <div>
                             <time><small>2022-01-01</small></time>
