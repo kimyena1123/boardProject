@@ -6,7 +6,9 @@
 
 <#--    bootstrap cdn-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<#--    css-->
     <link rel="stylesheet" href="/css/search-bar.css">
+    <link rel="stylesheet" href="/css/articles/table-header.css">
 </head>
 <body>
     <#include "*/include/header.ftl">
@@ -48,23 +50,44 @@
             </div>
         </div>
 
+        <#assign sortTitle = (sort?has_content && sort.getOrderFor('title')?has_content)?then(sort.getOrderFor('title').direction.name, '')>
+
+        <#if sortTitle == 'ASC'>
+            <#assign reversedSort = 'DESC'>
+        <#else>
+            <#assign reversedSort = 'ASC'>
+        </#if>
+
+
+        <#assign sortHashtag = (sort?has_content && sort.getOrderFor('hashtag')?has_content)?then(sort.getOrderFor('hashtag'), '')>
+        <#assign sortUserId = (sort?has_content && sort.getOrderFor('userAccount.userId')?has_content)?then(sort.getOrderFor('userAccount.userId'), '')>
+        <#assign sortCreatedAt = (sort?has_content && sort.getOrderFor('createdAt')?has_content)?then(sort.getOrderFor('createdAt'), '')>
+
         <table class="table" id="article-table">
             <thead class="table-light">
-            <tr>
-                <th class="title col-6">제목</th>
-                <th class="hashtag col-2">해시태그</th>
-                <th class="user-id col">작성자</th>
-                <th class="created-at col">작성일</th>
-            </tr>
+                <tr>
+                    <th class="title col-6">
+                        <a href="/articles?page=${articles.number}&sort=title,${reversedSort}">제목</a>
+                    </th>
+                    <th class="hashtag col-2">
+                        <a href="/articles?page=${articles.number}&sort=hashtag${sortHashtag}">해시태그</a>
+                    </th>
+                    <th class="user-id col">
+                        <a href="/articles?page=${articles.number}&sort=userAccount.userId${sortUserId}">작성자</a>
+                    </th>
+                    <th class="created-at col">
+                        <a href="/articles?page=${articles.number}&sort=createdAt${sortCreatedAt}">작성일</a>
+                    </th>
+                </tr>
             </thead>
             <tbody>
             <#list articles.getContent() as article>
-            <tr>
-                <td class="title"><a href="/articles/${article.id()}">${article.title()}</a></td>
-                <td class="hashtag">${article.hashtag()?default('')}</td>
-                <td class="user-id">${article.nickname()}</td>
-                <td class="created-at"><time>${article.createdAt()}</time></td>
-            </tr>
+                <tr>
+                    <td class="title"><a href="/articles/${article.id()}">${article.title()}</a></td>
+                    <td class="hashtag">${article.hashtag()?default('')}</td>
+                    <td class="user-id">${article.nickname()}</td>
+                    <td class="created-at"><time>${article.createdAt()}</time></td>
+                </tr>
             </#list>
             </tbody>
         </table>
