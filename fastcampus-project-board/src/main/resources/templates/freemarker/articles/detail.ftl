@@ -14,16 +14,16 @@
 
 <main id="article-main" class="container">
     <header id="article-header" class="py-5 text-center">
-            <h1>${articleId}번째 글</h1>
-        </header>
-
+        <h1>${articleId}번째 글</h1>
+    </header>
+    
         <div class="row g-5">
             <section class="col-md-5 col-lg-4 order-md-last">
                 <aside>
-                    <p><span id="nickname">Uno</span></p>
-                    <p><a id="email" href="mailto:djkehh@gmail.com">uno@mail.com</a></p>
-                    <p><time id="created-at" datetime="2022-01-01T00:00:00">2022-01-01</time></p>
-                    <p><span id="hashtag">#java</span></p>
+                    <p><span id="nickname">${article.nickname()}</span></p>
+                    <p><a id="email" href="mailto:djkehh@gmail.com">${article.email()}</a></p>
+                    <p><time id="created-at" datetime="2022-01-01T00:00:00">${article.createdAt()}</time></p>
+                    <p><span id="hashtag">${article.hashtag()?default('')}</span></p>
                 </aside>
             </section>
 
@@ -47,45 +47,53 @@
                 </form>
 
                 <ul id="article-comments" class="row col-7">
-                    <li>
-                        <div>
-                            <time><small>2022-01-01</small></time>
-                            <strong>Uno</strong>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
-                                Lorem ipsum dolor sit amet
-                            </p>
-                        </div>
-                    </li>
-                    <li>
-                        <div>
-                            <time><small>2022-01-01</small></time>
-                            <strong>Uno</strong>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
-                                Lorem ipsum dolor sit amet
-                            </p>
-                        </div>
-                    </li>
+                    <#list articleComments as articleComment>
+                        <#if articleComment_index == 0>
+                        <#-- 첫 번째 댓글은 건너뜁니다 -->
+                        <#else>
+                            <li>
+                                <div>
+                                    <small>${articleComment.createdAt()}</small>
+                                    <strong>${articleComment.nickname()}</strong>
+                                    <p>${articleComment.content()}</p>
+                                </div>
+                            </li>
+                        </#if>
+                    </#list>
                 </ul>
             </section>
         </div>
 
         <div class="row g-5">
-            <nav aria-label="Page navigation example">
+            <nav id="pagination" aria-label="Page navigation">
                 <ul class="pagination">
+
                     <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Previous">
-                            <span aria-hidden="true">&laquo; prev</span>
-                        </a>
+                        <#if articleId - 1 <= 0>
+                            <a class="page-link disabled" href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo; prev</span>
+                            </a>
+                        <#else>
+                            <a class="page-link" href="/articles/${articleId - 1}" aria-label="Previous">
+                                <span aria-hidden="true">&laquo; prev</span>
+                            </a>
+                        </#if>
                     </li>
+
                     <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Next">
-                            <span aria-hidden="true">next &raquo;</span>
-                        </a>
+                        <#if articleId + 1 gt totalCount>
+                            <a class="page-link disabled" href="#" aria-label="Next">
+                                <span aria-hidden="true">next &raquo;</span>
+                            </a>
+                        <#else>
+                            <a class="page-link" href="/articles/${articleId + 1}" aria-label="Next">
+                                <span aria-hidden="true">next &raquo;</span>
+                            </a>
+                        </#if>
                     </li>
                 </ul>
             </nav>
+
         </div>
 
 

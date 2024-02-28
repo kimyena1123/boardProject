@@ -75,9 +75,11 @@ class ArticleControllerTest {
     void givenNothing_whenRequestingArticleView_thenReturnsArticleView() throws Exception {
         //given
         Long articleId = 1L;
+        Long totalCount = 1L;
 
         //comment를 들고 있는 게시글 페이지가 만들어짐
         BDDMockito.given(articleService.getArticle(articleId)).willReturn(createArticleWithCommentsDto());
+        BDDMockito.given(articleService.getArticleCount()).willReturn(totalCount);
 
         //when & then
         mvc.perform(get("/articles/1"))
@@ -85,11 +87,13 @@ class ArticleControllerTest {
                 .andExpect(MockMvcResultMatchers.content().contentType("text/html;charset=UTF-8"))
                 .andExpect(view().name("articles/detail"))
                 .andExpect(model().attributeExists("article")) // 이때는 게시글 데이터가 넘겨져야 한다.
-                .andExpect(model().attributeExists("articleComments")); // 게시글 페이지는 댓글도 보여야 한다.
+                .andExpect(model().attributeExists("articleComments")) // 게시글 페이지는 댓글도 보여야 한다.
+                .andExpect(model().attribute("totalCount", totalCount));
                 //articleComment 테이블을 가져와서 정보를 보여줄 거임 그래서 articleComment 테이블이 필요한 거임
 
         //then
         BDDMockito.then(articleService).should().getArticle(articleId);
+        BDDMockito.then(articleService).should().getArticleCount();
 
     }
 
