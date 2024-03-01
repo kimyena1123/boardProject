@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 import org.springframework.data.domain.Pageable;
+
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.List;
@@ -52,6 +54,14 @@ public class ArticleController {
         //ArticleResponse을 쓴 이유: "게시판"을 보여주는 것이라서 "댓글"이 안보인다. 그래서 ArticleResopnse 사용
         map.addAttribute("articles", articles);
         map.addAttribute("paginationBarNumbers", barNumbers);
+//        map.addAttribute("searchTypes", SearchType.values());
+        map.addAttribute("searchTypes", Arrays.toString(SearchType.values()));
+
+        System.out.println("############check############");
+//        System.out.println(Arrays.toString(SearchType.values()));
+        System.out.println("searchValue >> " + searchValue);
+        System.out.println("searchType >> " + searchType);
+
 
         return "articles/index";
     }
