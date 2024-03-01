@@ -28,7 +28,8 @@
             </section>
 
             <article id="article-content" class="col-md-7 col-lg-8 border-end">
-                <p>본문<br><br></p>
+                <p>[본문]<br></p>
+                <p>${article.content()}</p>
             </article>
         </div>
 

@@ -7,7 +7,7 @@
 <#--    bootstrap cdn-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 <#--    css-->
-    <link rel="stylesheet" href="/css/search-bar.css">
+    <link rel="stylesheet" href="/css/articles/search-bar.css">
     <link rel="stylesheet" href="/css/articles/table-header.css">
 </head>
 <body>
@@ -17,24 +17,26 @@
     <main class="container" style="padding-top: 40px;">
 <#--bootdey 템플릿 사용-->
         <div class="row">
-            <div class="col-lg-12 card-margin">
-                <div class="card search-form">
+            <div class="col-lg-12 card card-margin search-form" style="padding: 0;">
+                <div class="card search-form" style="width: 100%; height: 100%; margin: 0;">
                     <div class="card-body p-0">
-                        <form id="search-form">
+                        <form action="/articles" method="get" style="width:100%; height:100%;">
                             <div class="row">
                                 <div class="col-12">
                                     <div class="row no-gutters">
                                         <div class="col-lg-3 col-md-3 col-sm-12 p-0">
-                                            <select class="form-control" id="exampleFormControlSelect1">
-                                                <option>제목</option>
-                                                <option>본문</option>
-                                                <option>ID</option>
-                                                <option>닉네임</option>
-                                                <option>해시태그</option>
+                                            <label for="search-type" hidden> 검색 유형</label>
+                                            <select class="form-control" id="search-type" name="searchType" style="padding-left: 25px;">
+                                                <#assign searchTypes = searchTypes?split(", ")>
+                                                <#list searchTypes as type>
+                                                    <#assign cleanType = type?replace("[", "")?replace("]", "")>
+                                                    <option>${cleanType}</option>
+                                                </#list>
                                             </select>
                                         </div>
                                         <div class="col-lg-8 col-md-6 col-sm-12 p-0">
-                                            <input type="text" placeholder="Search..." class="form-control" id="search" name="search" style="border-left:1px solid #bbb;">
+                                            <label for="search-value" hidden>검색어</label>
+                                            <input type="text" placeholder="검색어를 입력해주세요" class="form-control" id="search-value" name="searchValue" style="border-left:1px solid #bbb;">
                                         </div>
                                         <div class="col-lg-1 col-md-3 col-sm-12 p-0">
                                             <button type="submit" class="btn btn-base">
@@ -92,7 +94,6 @@
             </tbody>
         </table>
 
-
         <nav id="pagination" aria-label="Page navigation example">
             <ul class="pagination justify-content-center">
 
@@ -140,12 +141,36 @@
 
     </main>
 
-
     <#include "*/include/footer.ftl">
 
 <#--bootstrap script-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // select 요소와 input 요소 참조
+            const selectElement = document.getElementById('search-type');
+            const inputValueElement = document.getElementById('search-value');
+
+            // form 요소 참조
+            const formElement = document.querySelector('form');
+
+            // form submit 이벤트 감지
+            formElement.addEventListener('submit', function(event) {
+                // 선택된 option 요소
+                const selectedOption = selectElement.options[selectElement.selectedIndex];
+
+                // 선택된 option의 값과 입력한 검색어 출력
+                console.log('Selected Option Value:', selectedOption.value);
+                console.log('Input Value:', inputValueElement.value);
+
+                // 여기서 원하는 추가적인 동작을 수행할 수 있습니다.
+
+                // 이벤트 전파 방지
+                event.preventDefault();
+            });
+        });
+    </script>
 </body>
 
 </html>
